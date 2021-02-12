@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @tweeet.content %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @tweeet.user_id %>
+</p>
+
+<p>
+  <strong>Tweet:</strong>
+  <%= @tweeet.tweet_id %>
+</p>
+
+<p>
+  <strong>Retweets count:</strong>
+  <%= @tweeet.retweets_count %>
+</p>
+
+<%= link_to 'Edit', edit_tweeet_path(@tweeet) %> |
+<%= link_to 'Back', tweeets_path %>
