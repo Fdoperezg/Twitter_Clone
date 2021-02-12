@@ -17,7 +17,7 @@ class TweeetsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create tweeet" do
     assert_difference('Tweeet.count') do
-      post tweeets_url, params: { tweeet: { content: @tweeet.content, retweets_count: @tweeet.retweets_count, tweet_id: @tweeet.tweet_id, user_id: @tweeet.user_id } }
+      post tweeets_url, params: { tweeet: { tweeet: @tweeet.tweeet } }
     end
 
     assert_redirected_to tweeet_url(Tweeet.last)
@@ -34,7 +34,7 @@ class TweeetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update tweeet" do
-    patch tweeet_url(@tweeet), params: { tweeet: { content: @tweeet.content, retweets_count: @tweeet.retweets_count, tweet_id: @tweeet.tweet_id, user_id: @tweeet.user_id } }
+    patch tweeet_url(@tweeet), params: { tweeet: { tweeet: @tweeet.tweeet } }
     assert_redirected_to tweeet_url(@tweeet)
   end
 

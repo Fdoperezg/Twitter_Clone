@@ -64,6 +64,6 @@ class TweeetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tweeet_params
-      params.require(:tweeet).permit(:content, :user_id, :tweet_id, :retweets_count)
+      params.require(:tweeet).permit(:tweeet)
     end
 end

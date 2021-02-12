@@ -1,13 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  content: MyString
-  user_id: 1
-  tweet_id: 1
-  retweets_count: 1
+  tweeet: MyText
 
 two:
-  content: MyString
-  user_id: 1
-  tweet_id: 1
-  retweets_count: 1
+  tweeet: MyText
