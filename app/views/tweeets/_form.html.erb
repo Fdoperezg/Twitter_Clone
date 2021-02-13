@@ -1,5 +1,5 @@
-<%= form_with(model: tweeet, local: true) do |form| %>
-  <% if tweeet.errors.any? %>
+<%= form_with(model: @tweeet, local: true) do |form| %>
+  <% if @tweeet.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(tweeet.errors.count, "error") %> prohibited this tweeet from being saved:</h2>
 
@@ -11,12 +11,12 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :tweeet %>
-    <%= form.text_area :tweeet %>
+  <div class="form-group">
+    <% form.label :tweeet %>
+    <%= form.text_area :tweeet, class: "form-control", placeholder:"What are you thinking?" %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-secondary'%>
   </div>
 <% end %>

@@ -1,14 +1,20 @@
-<div class="card">
+
+<div class="card-header">
     <% @tweeets.each do |tweeet| %>
-        <p class="card-text">
-            <tbody>
-                <tr>
-                    <td><%= tweeet.tweeet %></td>
-                    <td><%= link_to 'Show', tweeet %></td>
-                    <td><%= link_to 'Edit', edit_tweeet_path(tweeet) %></td>
-                    <td><%= link_to 'Destroy', tweeet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                </tr>
-            </tbody>
+        <h5> username </h5>
+            <div class="card">
+                <p class="card-text">
+                    <tbody>
+                        <tr>
+                            <td><%= tweeet.tweeet %></td>
+                                <div>
+                                    <td><%= link_to 'Show', tweeet, class:"btn btn-primary" %></td>
+                                    <td><%= link_to 'Edit', edit_tweeet_path(tweeet), class:"btn btn-secondary" %></td>
+                                    <td><%= link_to 'Destroy', tweeet, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %></td>
+                                </div>
+                        </tr>
+                    </tbody>
+                    </p>
+            </div>
     <% end %>  
-        </p>
 </div>
