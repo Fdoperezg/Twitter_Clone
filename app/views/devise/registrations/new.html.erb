@@ -4,8 +4,16 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field form-group">
+    <%= f.text_field :name, class: "form-control", placeholder: "Name" %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.text_field :username, class: "form-control", placeholder: "Username" %>
+  </div>
+
+  <div class="field form-group">
     <% f.label :email %><br />
-    <%= f.email_field :email, class: "form-control", placeholder: "Email", autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, class: "form-control", placeholder: "Email", autocomplete: "email" %>
   </div>
 
   <div class="field form-group">
@@ -20,6 +28,10 @@
   <div class="field form-group">
     <% f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Password confirmation", autocomplete: "new-password" %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.text_field :profile_picture, class: "form-control", placeholder: "Insert an URL of your profile picture", autofocus: true, autocomplete: "email" %>
   </div>
 
   <div class="actions">
