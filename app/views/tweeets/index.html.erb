@@ -1,6 +1,9 @@
-<% if user_signed_in? %>
-<%= render 'form' %>
-<% end %>
+<div class="container">
+  <% if user_signed_in? %>
+  <%= render 'profile' %>
+  <%= render 'form' %>
+  <% end %>
+</div>
 </br>
 <h1>Tweeets</h1>
 

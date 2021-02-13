@@ -1,0 +1,16 @@
+<div class="media">
+<%= image_tag current_user.profile_picture %>
+  <div class="media-body">
+    <h5><%=current_user.username%></h5>
+    <h4><%=current_user.name%></h4>
+    <div>
+        <p> Tweeets: <%=current_user.tweeets.count%> </p>
+    </div>
+    <div>
+        <p> Following: 123 </p>
+    </div>
+    <div>
+        <p> Followers: 987 </p>
+    </div>
+  </div>
+</div>
