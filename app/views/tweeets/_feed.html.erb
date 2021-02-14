@@ -7,14 +7,14 @@
                     <p class="card-text">
                         <tbody>
                             <tr>
-                                <td><%= tweeet.tweeet %></td>
-                                    <% if user_signed_in? %>    
-                                        <div>
-                                            <td><%= link_to 'Show', tweeet, class:"btn btn-primary" %></td>
-                                            <td><%= link_to 'Edit', edit_tweeet_path(tweeet), class:"btn btn-secondary" %></td>
-                                            <td><%= link_to 'Destroy', tweeet, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %></td>
-                                        </div>
+                                <td><%= tweeet.tweeet %></td> 
+                                    <div>
+                                    <td><%= link_to 'Show', tweeet, class:"btn btn-primary" %></td>
+                                    <% if tweeet.user == current_user %>   
+                                        <td><%= link_to 'Edit', edit_tweeet_path(tweeet), class:"btn btn-secondary" %></td>
+                                        <td><%= link_to 'Destroy', tweeet, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %></td>
                                     <% end %>
+                                    </div>   
                             </tr>
                         </tbody>
                         </p>

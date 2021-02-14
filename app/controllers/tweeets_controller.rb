@@ -1,6 +1,7 @@
 class TweeetsController < ApplicationController
   before_action :set_tweeet, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, except: [:index, :show]
+  before_action :correct_user, only: [:edit, :update, :destroy]
 
   # GET /tweeets or /tweeets.json
   def index
@@ -56,6 +57,11 @@ class TweeetsController < ApplicationController
       format.html { redirect_to tweeets_url, notice: "Tweeet was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def correct_user
+    @tweeets = current_user.tweeets.find_by(id: params[:id])
+    redirect_to tweeets_path, notice: "Not authorized to edit this tweeet" if @tweeets.nil?
   end
 
   private
