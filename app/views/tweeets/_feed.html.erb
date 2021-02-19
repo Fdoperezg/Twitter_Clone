@@ -14,7 +14,16 @@
                                         <td><%= link_to 'Edit', edit_tweeet_path(tweeet), class:"btn btn-secondary" %></td>
                                         <td><%= link_to 'Destroy', tweeet, method: :delete, data: { confirm: 'Are you sure?' }, class:"btn btn-danger" %></td>
                                     <% end %>
-                                    </div>   
+                                    </div> 
+                                    <div>
+                                    <% pre_like = tweeet.likes.find { |like| like.user_id == current_user.id if user_signed_in? } %>
+                                    <% if pre_like %>
+                                      <%= link_to image_tag('like.png', size: "20x20"), like_path(pre_like.id), method: :delete %>
+                                    <% else %>
+                                      <%= link_to image_tag('dislike.png', size: "20x20"), likes_path(tweeet.id), method: :post %>
+                                    <% end %>
+                                    <%= tweeet.likes.count %>
+                                  </div>  
                             </tr>
                         </tbody>
                         </p>

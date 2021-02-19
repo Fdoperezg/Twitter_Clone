@@ -10,16 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_13_210135) do
+ActiveRecord::Schema.define(version: 2021_02_14_231835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "likes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "tweeet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tweeet_id"], name: "index_likes_on_tweeet_id"
+    t.index ["user_id"], name: "index_likes_on_user_id"
+  end
 
   create_table "tweeets", force: :cascade do |t|
     t.text "tweeet"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.integer "tweeet_id"
+    t.index ["tweeet_id"], name: "index_tweeets_on_tweeet_id"
+    t.index ["user_id"], name: "index_tweeets_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -38,4 +50,6 @@ ActiveRecord::Schema.define(version: 2021_02_13_210135) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "likes", "tweeets"
+  add_foreign_key "likes", "users"
 end

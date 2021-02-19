@@ -5,7 +5,7 @@ class TweeetsController < ApplicationController
 
   # GET /tweeets or /tweeets.json
   def index
-    @tweeets = Tweeet.all.order(created_at: :asc)
+    @tweeets = Tweeet.all.order(created_at: :desc)
     @tweeet = Tweeet.new
     @tweeets = Tweeet.page params[:page]
   end
@@ -21,6 +21,9 @@ class TweeetsController < ApplicationController
 
   # GET /tweeets/1/edit
   def edit
+    if @tweeet.user_id != current_user.id
+      redirect_to root_path, alert: 'No tienes permiso para editar el Tweeet'
+    end
   end
 
   # POST /tweeets or /tweeets.json
@@ -48,6 +51,20 @@ class TweeetsController < ApplicationController
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @tweeet.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def retweet
+    @retweet = Tweet.new(
+      user_id: current_user.id,
+      content: @tweet.content,
+      tweet_id: @tweet.id
+    )
+
+    if @retweet.save
+      redirect_to root_path, notice: 'Has retwiteado exitosamente'
+    else
+      redirect_to root_path, alert: 'Ya lo has retwiteado!'
     end
   end
 
