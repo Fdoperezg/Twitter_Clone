@@ -1,6 +1,7 @@
 class Tweeet < ApplicationRecord
     validates :tweeet, presence: true, length: { maximum: 140 }
     belongs_to :user, class_name: "User", foreign_key: "user_id"
+    belongs_to :tweets, optional: true
     has_many :likes, dependent: :destroy
     paginates_per 10
 

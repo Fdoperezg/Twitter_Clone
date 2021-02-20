@@ -1,10 +1,19 @@
 <div class="jumbotron">
-  <h1 class="display-4">Tweeet:</h1>
+  <h2>Tweeet:</h2>
   <p class="lead"><%= @tweeet.tweeet %></p>
   <hr class="my-4">
-  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-  <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+  <h3>Who liked this:</h3>
+    <div>
+      <% @tweeet.likes.each do |like| %>
+          <div>
+            <%= image_tag @tweeet.user.profile_picture %>
+            <%= like.user.username.capitalize %>
+          </div>
+        </div>
+      <% end %>
+      <%= link_to 'Edit', edit_tweeet_path(@tweeet), class:"btn btn-primary" %> |
+      <%= link_to 'Back', tweeets_path, class:"btn btn-secondary" %>
+    </div>
 </div>
 
-<%= link_to 'Edit', edit_tweeet_path(@tweeet), class:"btn btn-primary" %> |
-<%= link_to 'Back', tweeets_path, class:"btn btn-secondary" %>
+

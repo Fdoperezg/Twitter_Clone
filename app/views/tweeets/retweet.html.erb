@@ -1,0 +1,29 @@
+<h1>Retweet</h1>
+
+<%= form_with(model: [@retweet], local: true) do |form| %>
+
+  <% if @retweet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@retweet.errors.count, "error") %> prohibited this @retweet from being saved:</h2>
+
+      <ul>
+      <% @retweet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+ 
+  <%= @tweeet.tweeet %>
+    <div class="card">
+        <div class="form-group">   
+            <%= image_tag current_user.profile_picture %>
+            <%= form.text_area :tweeet, class: "form-control", placeholder:"Escribe tu comentario...", autofocus: true %>
+            <%= form.submit(class: 'btn btn-primary') %>
+        </div>
+    </div>
+  </div>
+
+<% end %>
+
+<%= link_to 'Volver', root_path%>

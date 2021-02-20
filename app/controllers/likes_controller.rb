@@ -8,7 +8,7 @@ class LikesController < ApplicationController
             @tweeet.likes.create(user_id: current_user.id)
             redirect_to root_path
         else
-            redirect_to root_path, alert: 'Para dar Like, debes iniciar sesión.'
+            redirect_to root_path, notice: 'Para dar Like, debes iniciar sesión.'
         end
     end
 

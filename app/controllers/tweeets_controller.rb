@@ -1,5 +1,5 @@
 class TweeetsController < ApplicationController
-  before_action :set_tweeet, only: %i[ show edit update destroy ]
+  before_action :set_tweeet, only: %i[ show edit update destroy retweet]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :correct_user, only: [:edit, :update, :destroy]
 
@@ -22,7 +22,7 @@ class TweeetsController < ApplicationController
   # GET /tweeets/1/edit
   def edit
     if @tweeet.user_id != current_user.id
-      redirect_to root_path, alert: 'No tienes permiso para editar el Tweeet'
+      redirect_to root_path, notice: 'No tienes permiso para editar el Tweeet'
     end
   end
 
@@ -32,7 +32,7 @@ class TweeetsController < ApplicationController
 
     respond_to do |format|
       if @tweeet.save
-        format.html { redirect_to root_path, notice: "Tweeet was successfully created." }
+        format.html { redirect_to root_path, notice: "El Tweeet fue creado exitosamente." }
         format.json { render :show, status: :created, location: @tweeet }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -45,7 +45,7 @@ class TweeetsController < ApplicationController
   def update
     respond_to do |format|
       if @tweeet.update(tweeet_params)
-        format.html { redirect_to @tweeet, notice: "Tweeet was successfully updated." }
+        format.html { redirect_to @tweeet, notice: "El Tweeet fue actualizado exitosamente." }
         format.json { render :show, status: :ok, location: @tweeet }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -55,16 +55,11 @@ class TweeetsController < ApplicationController
   end
 
   def retweet
-    @retweet = Tweet.new(
-      user_id: current_user.id,
-      content: @tweet.content,
-      tweet_id: @tweet.id
-    )
-
+    @retweet = current_user.tweeets.new(tweeet_id: @tweeet.id)
     if @retweet.save
-      redirect_to root_path, notice: 'Has retwiteado exitosamente'
+      redirect_to root_path, notice: 'Has retuiteado exitosamente'
     else
-      redirect_to root_path, alert: 'Ya lo has retwiteado!'
+      redirect_to root_path, notice: 'Ya lo has retuiteado!'
     end
   end
 
@@ -72,7 +67,7 @@ class TweeetsController < ApplicationController
   def destroy
     @tweeet.destroy
     respond_to do |format|
-      format.html { redirect_to tweeets_url, notice: "Tweeet was successfully destroyed." }
+      format.html { redirect_to tweeets_url, notice: "El Tweeet fue eliminado exitosamente." }
       format.json { head :no_content }
     end
   end
@@ -93,3 +88,17 @@ class TweeetsController < ApplicationController
       params.require(:tweeet).permit(:tweeet)
     end
 end
+
+
+#@tweeet = Tweeet.new
+    #@retweet = Tweeet.new(
+      #user_id: current_user.id,
+      #tweeet: @tweeet.tweeet,
+      #tweeet_id: @tweeet.id
+    #)
+
+    #if @retweet.save
+      #redirect_to root_path, notice: 'Has retuiteado exitosamente'
+    #else
+      #redirect_to root_path, notice: 'Ya lo has retuiteado!'
+    #end
