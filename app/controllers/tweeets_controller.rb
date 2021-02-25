@@ -1,5 +1,5 @@
 class TweeetsController < ApplicationController
-  before_action :set_tweeet, only: %i[ show edit update destroy retweet]
+  before_action :set_tweeet, only: [ :show, :edit, :update, :destroy, :retweet]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :correct_user, only: [:edit, :update, :destroy]
 
@@ -55,8 +55,8 @@ class TweeetsController < ApplicationController
   end
 
   def retweet
-    @retweet = current_user.tweeets.new(tweeet_id: @tweeet.id)
-    if @retweet.save
+    retweet = current_user.tweeets.new(tweeet_id: @tweeet.id)
+    if retweet.save
       redirect_to root_path, notice: 'Has retuiteado exitosamente'
     else
       redirect_to root_path, notice: 'Ya lo has retuiteado!'

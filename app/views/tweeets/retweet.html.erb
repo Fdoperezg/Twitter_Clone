@@ -1,6 +1,6 @@
 <h1>Retweet</h1>
 
-<%= form_with(model: [@retweet], local: true) do |form| %>
+<%= form_with(model: @retweet, local: true) do |form| %>
 
   <% if @retweet.errors.any? %>
     <div id="error_explanation">
