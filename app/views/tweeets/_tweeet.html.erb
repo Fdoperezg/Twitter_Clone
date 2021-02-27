@@ -1,30 +1,35 @@
 <h5> Created by <%= tweeet.user.username %> </h5>
-                <div class="card">
-                    <p class="card-text">
-                        <tbody>
-                            <tr>
-                                <td><%= tweeet.tweeet %></td>
-                                  <div>
-                                    <% if tweeet.user == current_user %>   
-                                        <td><%= link_to 'Edit', edit_tweeet_path(tweeet), class:"btn btn-secondary" %></td>
-                                        <td><%= link_to 'Delete', tweeet, method: :delete, data: { confirm: 'Estás seguro/a?' }, class:"btn btn-danger" %></td>
-                                    <% end %>
-                                        <%= link_to distance_of_time_in_words(Time.now, tweeet.created_at).capitalize, tweeet_path(tweeet), class: 'distance_of_posts_in_time', class:'btn btn-primary' %> 
-                                  </div> 
-                                  <div>
-                                    <% pre_like = tweeet.likes.find { |like| like.user_id == current_user.id if user_signed_in? } %>
-                                    <% if pre_like %>
-                                      <%= link_to image_tag('like.png', size: "20x20"), like_path(pre_like.id), method: :delete %>
-                                    <% else %>
-                                      <%= link_to image_tag('dislike.png', size: "20x20"), likes_path(tweeet.id), method: :post %>
-                                    <% end %>
-                                    <%= tweeet.likes.count %>
-                                  </div>  
-                                  <div>
-                                    <%= link_to image_tag('retweet.png', size: "20x20"), retweet_tweeet_path(tweeet), method: :post if user_signed_in? && tweeet.user_id != current_user.id %>
-                                    <%= tweeet.tweeet_type if user_signed_in? && tweeet.user_id != current_user.id %>
-                                  </div>
-                            </tr>
-                        </tbody>
-                    </p>
-                </div>
+  <div class="card">
+      <p class="card-text">
+          <tbody>
+              <tr>
+                  <td><%= tweeet.tweeet %></td>
+                    <div>
+                      <% if tweeet.user == current_user %>   
+                          <td><%= link_to 'Edit', edit_tweeet_path(tweeet), class:"btn btn-secondary" %></td>
+                          <td><%= link_to 'Delete', tweeet, method: :delete, data: { confirm: 'Estás seguro/a?' }, class:"btn btn-danger" %></td>
+                      <% end %>
+                          <%= link_to distance_of_time_in_words(Time.now, tweeet.created_at).capitalize, tweeet_path(tweeet), class: 'distance_of_posts_in_time', class:'btn btn-primary' %> 
+                    </div> 
+                    <div>
+                      <% pre_like = tweeet.likes.find { |like| like.user_id == current_user.id if user_signed_in? } %>
+                      <% if pre_like %>
+                        <%= link_to image_tag('like.png', size: "20x20"), like_path(pre_like.id), method: :delete %>
+                      <% else %>
+                        <%= link_to image_tag('dislike.png', size: "20x20"), likes_path(tweeet.id), method: :post %>
+                      <% end %>
+                      <%= tweeet.likes.count %>
+                    </div>  
+                    <% if tweeet.tweeet_id.present? %>
+                    <div>
+                      <p> Tweeet of <%= tweeet.origin.user.username %> </p>
+                    </div>
+                    <% end %>
+                    <div>
+                      <%= link_to image_tag('retweet.png', size: "20x20"), retweet_tweeet_path(tweeet.id), method: :post if user_signed_in? && tweeet.user_id != current_user.id %>
+                      <%= tweeet.count_retweet if user_signed_in? && tweeet.user_id != current_user.id %> 
+                    </div>  
+              </tr>
+          </tbody>
+      </p>
+  </div>

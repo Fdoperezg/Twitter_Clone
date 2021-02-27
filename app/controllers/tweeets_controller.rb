@@ -55,13 +55,16 @@ class TweeetsController < ApplicationController
   end
 
   def retweet
-    retweet = current_user.tweeets.new(tweeet_id: @tweeet.id)
+    origin = Tweeet.find(params[:id])
+    retweet = Tweeet.new(tweeet: origin.tweeet, user: current_user, tweeet_id: origin.id)
     if retweet.save
       redirect_to root_path, notice: 'Has retuiteado exitosamente'
     else
       redirect_to root_path, notice: 'Ya lo has retuiteado!'
     end
   end
+
+#retweet = current_user.tweeets.new(tweeet_id: @tweeet.id)
 
   # DELETE /tweeets/1 or /tweeets/1.json
   def destroy

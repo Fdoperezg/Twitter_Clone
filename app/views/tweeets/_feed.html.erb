@@ -1,7 +1,7 @@
 <div class="card-header">
         <% @tweeets.each do |tweeet| %>
             <%= image_tag tweeet.user.profile_picture %>
-            <%= render partial: "tweeets/#{tweeet.tweeet_type}", locals: {tweeet: tweeet} %>
+            <%= render 'tweeet', tweeet: tweeet %>
         <% end %>
 </div>
 </br>

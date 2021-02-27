@@ -18,13 +18,11 @@ class Tweeet < ApplicationRecord
       "(created_at) >= ? AND (created_at) <= ?", start_date, end_date
   ) }
 
-  def tweeet_type
-    if tweeet_id? && tweeet?
-      "quote-tweeet"
-    elsif tweeet_id?
-      "retweet"
-    else
-      "tweeet"
-    end
+  def origin
+    @origin = Tweeet.find(self.tweeet_id)
+  end
+
+  def count_retweet
+    Tweeet.where(tweeet_id: self.id).count
   end
 end
