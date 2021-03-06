@@ -1,5 +1,18 @@
 <div class="container">
   <% if user_signed_in? %>
+  <div class="row">
+    <div class="col-md-3 offset-md-2">
+      <%= search_form_for @q do |f| %>
+        <div class="form-group">
+          <%= f.label :tweeet_cont %>
+          <%= f.search_field :tweeet_cont, class: "form-control", placeholder: "Search in Tweeet's content" %>
+        </div>  
+      <%= f.submit "Search", class: "btn-btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+    
+</br>
   <%= render 'profile' %>
   <%= render 'form' %>
   <%= render 'friends_profile' %>

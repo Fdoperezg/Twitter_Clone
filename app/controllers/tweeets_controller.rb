@@ -5,9 +5,10 @@ class TweeetsController < ApplicationController
 
   # GET /tweeets or /tweeets.json
   def index
-    @tweeets = Tweeet.all.order(created_at: :desc)
     @tweeet = Tweeet.new
-    @tweeets = Tweeet.page params[:page]
+    @q = Tweeet.ransack(params[:q])
+    @tweeets = @q.result.includes(:tweeet).page(params[:page])
+    @tweeets = Tweeet.page(params[:page])
   end
 
   # GET /tweeets/1 or /tweeets/1.json

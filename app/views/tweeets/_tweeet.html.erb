@@ -3,7 +3,13 @@
       <p class="card-text">
           <tbody>
               <tr>
-                  <td><%= tweeet.tweeet %></td>
+                  <td><% tweeet.tweeet.split.each do |word| %></td>
+                        <% if word.start_with?('#') %>
+                          <%= link_to word, root_path(q: word) %>
+                        <% else %>
+                          <%= word %>
+                        <% end %>
+                      <% end %>
                     <div>
                       <% if tweeet.user == current_user %>   
                           <td><%= link_to 'Edit', edit_tweeet_path(tweeet), class:"btn btn-secondary" %></td>

@@ -3,7 +3,7 @@ class Tweeet < ApplicationRecord
   validates :tweeet, presence: true, length: { maximum: 140 }
   has_many :likes, dependent: :destroy
   has_many :linking_users, :through => :likes, :source => :user
-  paginates_per 50
+  paginates_per 5
   has_many :tweeets
   belongs_to :tweets, optional: true
   validates :tweeet_id, uniqueness: {scope: :user_id }, allow_nil: true
