@@ -21,7 +21,6 @@ class TweeetsController < ApplicationController
 
   # GET /tweeets/1 or /tweeets/1.json
   def show
-    @user = User.find(params[:id])
   end
 
   # GET /tweeets/new
