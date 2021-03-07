@@ -34,7 +34,14 @@
                     <div>
                       <%= link_to image_tag('retweet.png', size: "20x20"), retweet_tweeet_path(tweeet.id), method: :post if user_signed_in? && tweeet.user_id != current_user.id %>
                       <%= tweeet.count_retweet if user_signed_in? && tweeet.user_id != current_user.id %> 
-                    </div>  
+                    </div> 
+                    <div>
+                    <% if user_signed_in? && current_user.following?(tweeet) %>
+                      <td><%= link_to 'Unfollow', friendships_update_path(tweeet), method: :post, class:"btn btn-danger" %></td>
+                    <% else %>
+                      <td><%= link_to 'Follow', tweeet_friendships_path(tweeet.id), method: :post, class:"btn btn-primary" %></td>
+                    <% end %>
+                    </div> 
               </tr>
           </tbody>
       </p>

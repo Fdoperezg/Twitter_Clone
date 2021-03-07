@@ -5,12 +5,12 @@ class Tweeet < ApplicationRecord
   has_many :linking_users, :through => :likes, :source => :user
   paginates_per 5
   has_many :tweeets
-  belongs_to :tweets, optional: true
+  belongs_to :tweeets, optional: true
   validates :tweeet_id, uniqueness: {scope: :user_id }, allow_nil: true
     
   scope :tweets_for_me, ->(users_list) { where(
-      user_id: users_list.map do |friend|
-          friend.friend_id
+      user_id: users_list.map do |friendships|
+          friend.friend
       end
   ) }
 

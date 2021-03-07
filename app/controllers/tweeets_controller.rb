@@ -14,12 +14,14 @@ class TweeetsController < ApplicationController
       elsif current_user.nil?
         @tweeets = Tweeet.order(created_at: :desc).page(params[:page])
       else
-      @tweeets = Tweeet.tweets_for_me(current_user.friends).or(Tweeet.where("user_id = ?", current_user.id)).order(created_at: :desc).page(params[:page])
+      #@tweeets = Tweeet.tweets_for_me(current_user).or(Tweeet.where("user_id = ?", current_user.id)).order(created_at: :desc).page(params[:page])
+
     end
   end
 
   # GET /tweeets/1 or /tweeets/1.json
   def show
+    @user = User.find(params[:id])
   end
 
   # GET /tweeets/new
@@ -47,6 +49,10 @@ class TweeetsController < ApplicationController
         format.json { render json: @tweeet.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def friendship
+  byebug
   end
 
   # PATCH/PUT /tweeets/1 or /tweeets/1.json
