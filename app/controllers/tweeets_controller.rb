@@ -51,9 +51,7 @@ class TweeetsController < ApplicationController
     end
   end
 
-  def friendship
-  byebug
-  end
+
 
   # PATCH/PUT /tweeets/1 or /tweeets/1.json
   def update

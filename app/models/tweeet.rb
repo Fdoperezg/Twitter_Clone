@@ -3,14 +3,14 @@ class Tweeet < ApplicationRecord
   validates :tweeet, presence: true, length: { maximum: 140 }
   has_many :likes, dependent: :destroy
   has_many :linking_users, :through => :likes, :source => :user
-  paginates_per 5
+  paginates_per 50
   has_many :tweeets
   belongs_to :tweeets, optional: true
   validates :tweeet_id, uniqueness: {scope: :user_id }, allow_nil: true
     
   scope :tweets_for_me, ->(users_list) { where(
-      user_id: users_list.map do |friendships|
-          friend.friend
+      user_id: users_list.map do |friendship|
+          friendship.friendship_id
       end
   ) }
 
