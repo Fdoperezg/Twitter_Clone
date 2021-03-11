@@ -10,6 +10,7 @@
                           <%= word %>
                         <% end %>
                       <% end %>
+
                     <div>
                       <% if tweeet.user == current_user %>   
                           <td><%= link_to 'Edit', edit_tweeet_path(tweeet), class:"btn btn-secondary" %></td>
@@ -17,6 +18,7 @@
                       <% end %>
                           <%= link_to distance_of_time_in_words(Time.now, tweeet.created_at).capitalize, tweeet_path(tweeet), class: 'distance_of_posts_in_time', class:'btn btn-primary' %> 
                     </div> 
+
                     <div>
                       <% pre_like = tweeet.likes.find { |like| like.user_id == current_user.id if user_signed_in? } %>
                       <% if pre_like %>
@@ -25,24 +27,25 @@
                         <%= link_to image_tag('dislike.png', size: "20x20"), likes_path(tweeet.id), method: :post %>
                       <% end %>
                       <%= tweeet.likes.count %>
-                    </div>  
+                    </div> 
+
                     <% if tweeet.tweeet_id.present? %>
-                    <div>
-                      <p> Tweeet of <%= tweeet.origin.user.username %> </p>
-                    </div>
+                      <div>
+                        <p> Tweeet of <%= tweeet.origin.user.username %> </p>
+                      </div>
                     <% end %>
+                    
                     <div>
                       <%= link_to image_tag('retweet.png', size: "20x20"), retweet_tweeet_path(tweeet.id), method: :post if user_signed_in? && tweeet.user_id != current_user.id %>
                       <%= tweeet.count_retweet if user_signed_in? && tweeet.user_id != current_user.id %> 
                     </div> 
+                    
                     <div>
-                    <% if tweeet.user_id != current_user.id %>
-                      <% if user_signed_in? && current_user.following?(tweeet) %>
+                      <% if user_signed_in? && current_user.following?(tweeet) && tweeet.user_id != current_user.id%>
                         <td><%= link_to 'Unfollow', friendships_update_path(tweeet), method: :post, class:"btn btn-danger" %></td>
                       <% else %>
                         <td><%= link_to 'Follow', tweeet_friendships_path(tweeet.id), method: :post, class:"btn btn-primary" %></td>
                       <% end %>
-                    <% end %>
                     </div> 
               </tr>
           </tbody>

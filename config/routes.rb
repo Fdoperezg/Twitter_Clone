@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, :controllers => { registrations: 'registrations' }
-  
+  get 'api/news', to: 'tweeets#news'
+
   resources :tweeets do
     member do
       post :retweet
@@ -12,5 +13,6 @@ Rails.application.routes.draw do
   resources :likes
   post 'friendships/update/:id', to: 'friendships#update' , as: 'friendships_update' 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  
   root "tweeets#index"
 end
