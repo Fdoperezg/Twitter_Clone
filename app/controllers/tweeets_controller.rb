@@ -20,6 +20,14 @@ class TweeetsController < ApplicationController
     render json: api_tweeets
   end
 
+  def date
+    date_one = params[:fecha1].to_date
+    date_two = params[:fecha2].to_date
+    date_tweeets = Tweeet.created_between(date_one, date_two)
+    api_tweeets = helpers.into_hash_and_date(date_tweeets)
+    render json: api_tweeets
+  end
+
   def show
   end
 

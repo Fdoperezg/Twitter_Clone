@@ -3,7 +3,8 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   devise_for :users, :controllers => { registrations: 'registrations' }
   get 'api/news', to: 'tweeets#news'
-
+  get 'api/:fecha1/:fecha2', to: 'tweeets#date'
+  
   resources :tweeets do
     member do
       post :retweet
