@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations' }
   get 'api/news', to: 'tweeets#news'
   get 'api/:fecha1/:fecha2', to: 'tweeets#date'
-  
+  post 'api/create', to: 'api#create_tweet'
+
   resources :tweeets do
     member do
       post :retweet
