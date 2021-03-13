@@ -3,10 +3,14 @@ class ApiController < ActionController::API
         @user = User.find_by(email: request.headers["X-EMAIL"])
         if @user.present?
             @tweeet = Tweeet.new(tweeet: request.headers["X-CONTENT"], user: @user)
-            if @tweeet.save
-                render json: @tweeet
+            if request.headers["X-API-KEY"] == @user.api_key
+                if @tweeet.save
+                    render json: @tweeet
+                else
+                    render json: "Tweet couldn't be saved"
+                end
             else
-                render json: "Tweet couldn't be saved"
+                render json: "Api Key not valid"
             end
         else
             render json: "User not found"

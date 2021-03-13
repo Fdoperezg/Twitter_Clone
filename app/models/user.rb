@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_many :friendships
   has_many :following, foreign_key: "follower_id", class_name: "Friendship"
   has_many :followers, foreign_key: "followed_id", class_name: "Friendship"
+  before_create :set_api_key
 
   validates :username, presence: true, uniqueness: true 
 
@@ -28,5 +29,15 @@ class User < ApplicationRecord
           end
       end
       tweeets_for_me 
-    end
+  end
+
+  def generate_api_key
+    SecureRandom.base58(24)
+  end
+  
+  def set_api_key
+    self.api_key = generate_api_key
+  end 
 end
+
+
