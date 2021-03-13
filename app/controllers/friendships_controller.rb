@@ -4,11 +4,16 @@ class FriendshipsController < ApplicationController
 
     def create
         @tweeet = Tweeet.find(params[:tweeet_id])
-        @friendship = Friendship.new(user: current_user, friendship_id: @tweeet.user.id)
-        if @friendship.save
-            redirect_to root_path
+        friendship_exist = Friendship.find_by(user_id: current_user.id, friendship_id: @tweeet.user_id)
+        if friendship_exist.present? 
+            redirect_to root_path, notice: "This friendship already exists"
         else
-            redirect_to root_path, notice: "Friendship couldn't be created"
+            @friendship = Friendship.new(user: current_user, friendship_id: @tweeet.user.id)
+            if @friendship.save
+                redirect_to root_path
+            else
+                redirect_to root_path, notice: "Friendship couldn't be created"
+            end 
         end 
     end
 

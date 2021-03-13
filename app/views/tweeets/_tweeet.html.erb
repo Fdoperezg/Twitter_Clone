@@ -41,7 +41,7 @@
                     </div> 
                     
                     <div>
-                      <% if user_signed_in? && current_user.following?(tweeet) && tweeet.user_id != current_user.id%>
+                      <% if user_signed_in? && current_user.following?(tweeet) %>
                         <td><%= link_to 'Unfollow', friendships_update_path(tweeet), method: :post, class:"btn btn-danger" %></td>
                       <% else %>
                         <td><%= link_to 'Follow', tweeet_friendships_path(tweeet.id), method: :post, class:"btn btn-primary" %></td>

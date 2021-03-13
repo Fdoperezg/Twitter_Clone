@@ -6,11 +6,14 @@ class TweeetsController < ApplicationController
  
   def index
     @tweeet = Tweeet.new
-    @tweeets = Tweeet.page(params[:page])
+    if user_signed_in? 
+      @tweeets = current_user.tweets_for_me 
+    else
+      @tweeets = Tweeet.page(params[:page])
+    end
+
     if params[:q]
       @tweeets = Tweeet.where("tweeet LIKE ?", "%#{params[:q]}%").order(created_at: :desc).page(params[:page])
-    else current_user.nil?
-        @tweeets = Tweeet.order(created_at: :desc).page(params[:page])
     end
   end
 

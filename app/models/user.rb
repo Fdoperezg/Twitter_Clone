@@ -1,11 +1,9 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :tweeets, dependent: :destroy
   has_many :likes, dependent: :destroy
-
+  has_many :friendships
   has_many :following, foreign_key: "follower_id", class_name: "Friendship"
   has_many :followers, foreign_key: "followed_id", class_name: "Friendship"
 
@@ -19,4 +17,16 @@ class User < ApplicationRecord
       return true
     end
   end
+
+  def tweets_for_me
+    friend_list = self.friendships.pluck(:friendship_id)
+    tweeets_for_me = [] 
+      friend_list.each do |friend_id|
+        friend = User.find(friend_id)
+          friend.tweeets.each do |tweeet|
+            tweeets_for_me.push tweeet
+          end
+      end
+      tweeets_for_me 
+    end
 end

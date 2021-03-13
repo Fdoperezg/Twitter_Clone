@@ -7,12 +7,6 @@ class Tweeet < ApplicationRecord
   has_many :tweeets
   belongs_to :tweeets, optional: true
   validates :tweeet_id, uniqueness: {scope: :user_id }, allow_nil: true
-    
-  scope :tweets_for_me, ->(users_list) { where(
-      user_id: users_list.map do |friendship|
-          friendship.friendship_id
-      end
-  ) }
 
   scope :created_between, ->(start_date, end_date) {where(
       "(created_at) >= ? AND (created_at) <= ?", start_date, end_date
